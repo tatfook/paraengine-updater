@@ -11,7 +11,12 @@ usage() {
     done
 }
 
-if [[ -z $1 ]]; then
+if [[ $# != 1 ]]; then
+    usage
+    exit 1
+fi
+
+if [[ ! -d $1 ]]; then
     usage
     exit 1
 fi
