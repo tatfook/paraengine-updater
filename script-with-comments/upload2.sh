@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # put this file and diff_fld.sh together in /usr/lib/cgi-bin
 # make these script file mod 755

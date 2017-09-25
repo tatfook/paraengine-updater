@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 teentag=""
 if [ $# -eq 1 ]; then

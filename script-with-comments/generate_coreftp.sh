@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 teentag=""
 if [ $# -eq 1 ]; then
@@ -42,7 +42,7 @@ cut -d, -f2 $needlist | grep "/" | sed -e 's/\(.*\)\/\(.*\)/\1/' | sort | uniq >
 
 # generate FTP scripts to tftpcore.sh
 rm -f tftpcore.sh
-echo "#!/bin/bash" >tftpcore.sh
+echo "#!/usr/bin/env bash" >tftpcore.sh
 echo "ftp -n << !" >>tftpcore.sh
 echo "open 192.168.0.228" >>tftpcore.sh
 echo "user $ftpuser ftpparaengine" >>tftpcore.sh

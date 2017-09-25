@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # first, it pull svn code from svn://svn.paraengine.com/script/trunk/
 # this repo should be npl_packages/paracraft (like main packages)
