@@ -20,3 +20,7 @@ if [[ ! -d $1 ]]; then
     usage
     exit 1
 fi
+
+pushd $1
+./main.sh
+popd
