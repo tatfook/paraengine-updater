@@ -1,8 +1,6 @@
 #!/bin/bash
 
 
-cd  /opt/hudson_conf/ci_shell/Client
-
 # get directory names from current assets update files
 sed -e 's/\(.*\)\/\(.*\)/\1/' need_upload.txt |grep -v ".svn"|sort|uniq > ftpnew_dir.txt
 

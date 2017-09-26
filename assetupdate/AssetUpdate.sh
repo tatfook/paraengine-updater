@@ -1,15 +1,11 @@
 #!/bin/bash
 
-cd  /opt/hudson_conf/ci_shell/Client
 rm -f ftp_all.list
-rm -f file_prop_tmp.list
 
-svn update  /opt/packages --username YDD --password YDDParaEngine
+svn checkout --username YDD --password YDDParaEngine svn://192.168.0.200/script/trunk/packages ./packages
 
-sleep 2
 rm -f  assetmanifest.txt
-
-cp  "/opt/packages/redist/_assetmanifest.ftp.uploader.txt" assetmanifest.txt
+cp  "./packages/redist/_assetmanifest.ftp.uploader.txt" assetmanifest.txt
 conf_file="assetmanifest.txt"
 
 grep -v "^--" "$conf_file" | grep -v "\[search*" | grep -v "\[exclude*" |tr -s '\r\n' '\n' |sed '/^$/d' | sed -e 's/[\t ]*$//g' > all_tmp0.list
@@ -32,7 +28,6 @@ do
   fi
 done < all_tmp0.list
 
-### Get all files list
 while read xx
 do
   spath=`dirname $xx`/
@@ -60,7 +55,6 @@ do
   fi
 done < search3_tmp0.list
 
-### Get exclude file list
 echo "" > exclude_tmp1.list
 while read xx
 do
@@ -86,7 +80,9 @@ sort all_tmp2.list same_tmp.list | uniq -u > ftp_all.list
 
 ./generate_new_name.pl |grep -v ".svn" > ftp_new_name.txt
 
+
 wget "http://192.168.0.228/assetdownload/list/ftpsvrlist0.txt" -O ./ftpsvrlist0.txt
+
 sort ./ftpsvrlist0.txt |uniq > ftpsvr_sort.txt
 sort ftp_new_name.txt | uniq > ftpnewname_sort.txt
 sort ftpnewname_sort.txt ./ftpsvr_sort.txt |uniq -d > ab.txt
@@ -105,14 +101,7 @@ if [ -e "tftpasset.sh" ];then
   /bin/bash tftpasset.sh
 fi
 
-/opt/hudson_conf/ci_shell/Lan/svr_auto.sh "192.168.0.228" "paraengine" "/usr/local/script/renew_assetlist/chown_varwww.sh"
+./svr_auto.sh "192.168.0.228" "paraengine" "/usr/local/script/renew_assetlist/chown_varwww.sh"
 wget -c "http://192.168.0.228/cgi-bin/upload_asset2.sh" -O ./upload_asset.htm
 cat upload_asset.htm | grep -v "Processing"
-exit
-rm upload_asset.htm -f
-rm ftpsvrlist0.txt -f
-rm ab.txt -f
-rm need_upload.txt -f
-rm ftpsvr_sort.txt -f
-rm ftpnewname_sort.txt -f
 

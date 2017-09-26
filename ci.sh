@@ -23,6 +23,23 @@ if [[ ! -d $1 ]]; then
   exit 1
 fi
 
+prequisite() {
+  # mount paraenginesdk
+  mount_dirs=(installer Texture model character ParaEngineSDK)
+  for d in ${mount_dirs[@]}; do
+    mkdir -p /mnt/$d
+
+    # if /mnt/$d is mounted
+    if mount | grep /mnt/$d > /dev/null; then
+      echo "/mnt/$d is mounted"
+    else
+      sudo mount -t cifs -o password=paraengine //192.168.0.241/$d /mnt/$d
+    fi
+  done
+}
+
+prequisite
+
 pushd $1
 ./main.sh
 popd

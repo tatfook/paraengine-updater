@@ -8,5 +8,24 @@
 # perfoce update
 # p4 -p tcp:192.168.0.200:1666 -u ci -P ci1234567 sync
 
-echo "not finished yet"
+# perforce server is serve in 200, open P4V program and connect 192.168.0.200:1666
+#
+# user: ci, workspace: ci_241, view map:
+#
+# ```
+# //paracraft/... //ci_241/paracraft/...
+# -//paracraft/....psd //ci_241/paracraft/....psd
+# -//paracraft/....max //ci_241/paracraft/....max
+# ```
+#
+# strange thing is that perforce is served in 200
+#
+# serve path: D:\p4server\paracraft
+#
+# this job use perforce terminal client to update in the same machine.
+#
+# client workspace path: D:\hudsonworkspace\workspace\asset_ABupdate\paracraft
+
+echo "phase asset_ABupdate"
+
 exit 0

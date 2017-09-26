@@ -13,30 +13,6 @@ ci slaves: 200(win server), 224, 240
 
 ### phase
 
-#### asset_ABupdate
-
-http://192.168.0.25:8080/view/%E5%84%BF%E7%AB%A5%E7%89%88ClientBuild/job/asset_ABupdate/configure
-
-running on 200, update asset from perforce server
-
-perforce server is serve in 200, open P4V program and connect 192.168.0.200:1666
-
-user: ci, workspace: ci_241, view map:
-
-```
-//paracraft/... //ci_241/paracraft/...
--//paracraft/....psd //ci_241/paracraft/....psd
--//paracraft/....max //ci_241/paracraft/....max
-```
-
-strange thing is that perforce is served in 200
-
-serve path: D:\p4server\paracraft
-
-this job use perforce terminal client to update in the same machine.
-
-client workspace path: D:\hudsonworkspace\workspace\asset_ABupdate\paracraft
-
 #### assetupdate
 
 http://192.168.0.25:8080/view/%E5%84%BF%E7%AB%A5%E7%89%88ClientBuild/job/assetupdate/configure
