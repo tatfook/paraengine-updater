@@ -33,7 +33,7 @@
 
 # prequisite
 # 1. ParaEngineSDK -> /mnt/ParaEngineSDK
-ln -s /mnt/ParaEngineSDK ParaEngineSDK
+sudo ln -sf /mnt/ParaEngineSDK ParaEngineSDK
 
 # svn update --username svr233 --password svr233ParaEngine
 # from svn://192.168.0.200/hudson_conf/ci_shell/Client/AssetUpdate.sh

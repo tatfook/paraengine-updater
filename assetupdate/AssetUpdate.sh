@@ -102,9 +102,8 @@ if [ -e "tftpasset.sh" ];then
 fi
 
 
-chown www-data:www-data /var/www/* -R
+sudo chown www-data:www-data /var/www/* -R
 
 
-wget -c "http://192.168.0.228/cgi-bin/upload_asset2.sh" -O ./upload_asset.htm
-cat upload_asset.htm | grep -v "Processing"
+./upload_asset2.sh
 
