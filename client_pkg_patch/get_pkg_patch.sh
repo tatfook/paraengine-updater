@@ -95,7 +95,7 @@ if [ -z "$zippatch_list" ];then
     find "$path" -iname "$name"  >> configfiles.list
   done <  configtemp.txt
 
-  basecfg_dir="/opt/config_bak/config"
+  basecfg_dir="./config"
 
   rm -f configpatch.list
   while read xx0
@@ -171,7 +171,7 @@ else
   exit -1
 fi
 
-rm -f ../installer/main.pkg
+rm -f ./installer/main.pkg
 ./ParaEngineServer 'bootstrapper="paraengine.svn/script/shell_loop_encryptzipfiles.lua"'
 pid=`ps ax|grep ParaEngineServer.*shell_loop_encryptzipfiles|cut -d" " -f1`
 

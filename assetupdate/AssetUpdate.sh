@@ -3,6 +3,7 @@
 rm -f ftp_all.list
 
 svn checkout --username YDD --password YDDParaEngine svn://192.168.0.200/script/trunk/packages ./packages
+svn update ./packages
 
 rm -f  assetmanifest.txt
 cp  "./packages/redist/_assetmanifest.ftp.uploader.txt" assetmanifest.txt

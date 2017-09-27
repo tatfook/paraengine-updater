@@ -75,8 +75,21 @@ sudo -u www-data scp -r root@server.228:/var/www/asset/.  /var/www/asset/
 sudo -u www-data scp -r root@server.228:/var/www/assetdownload/.  /var/www/assetdownload/
 
 
+---
+
+client_pkg_patch/config ==== server.25:/opt/config_bak/config
 
 
+cd ~/project/paraengine-updater
+mkdir ./client_pkg_patch/config/
+scp -r root@server.25:/opt/config_bak/config/.  ./client_pkg_patch/config/
 
+-----
+
+client_pkg_patch/installer === server.25:/var/lib/hudson/jobs/client_pkg_patch/installer
+
+cd ~/project/paraengine-updater
+mkdir ./client_pkg_patch/installer/
+scp -r root@server.25:/var/lib/hudson/jobs/client_pkg_patch/installer/.  ./client_pkg_patch/installer/
 
 
