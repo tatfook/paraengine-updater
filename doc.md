@@ -27,12 +27,16 @@ svn:
 ## sumulation
 
 /home/ftpasset/ ==== server.228:/home/upload/asset/
+/home/ftpuser1/ ==== server.228:/home/upload/prog/
 
 as 228 ftp:
 > apt install vsftpd
 
-useradd -s /bin/false -m ftpasset
-passwd ftpasset
+sudo useradd -s /bin/false -m ftpasset
+sudo passwd ftpasset
+> ftpparaengine
+sudo useradd -s /bin/false -m ftpuser1
+sudo passwd ftpuser1
 > ftpparaengine
 
 if can't login with ftpasset user, try this:
@@ -52,11 +56,16 @@ add
 
 sudo -u ftpasset rm -rf /home/ftpasset/.* /home/ftpasset/*
 sudo -u ftpasset scp -r root@server.228:/home/upload/asset/. /home/ftpasset/
+sudo -u ftpuser1 rm -rf /home/ftpuser1/.* /home/ftpuser1/*
+sudo -u ftpuser1 scp -r root@server.228:/home/upload/prog/. /home/ftpuser1/
 
 
 ----
 
+/var/www/asset/ === server.228:/var/www/asset/
 /var/www/assetdownload/ === server.228:/var/www/assetdownload/
+/var/www/coredownload/ === server.228:/var/www/coredownload/
+/var/www/prog/ === server.228:/var/www/prog/
 
 as 228 http:
 > apt install apache2
@@ -70,9 +79,15 @@ sudo service apache2 restart
 
 sudo mkdir /var/www/asset
 sudo mkdir /var/www/assetdownload
+sudo mkdir /var/www/coredownload
+sudo mkdir /var/www/prog
+sudo mkdir /var/www/refresh_time
 sudo chown www-data:www-data -R /var/www
 sudo -u www-data scp -r root@server.228:/var/www/asset/.  /var/www/asset/
 sudo -u www-data scp -r root@server.228:/var/www/assetdownload/.  /var/www/assetdownload/
+sudo -u www-data scp -r root@server.228:/var/www/coredownload/.  /var/www/coredownload/
+sudo -u www-data scp -r root@server.228:/var/www/prog/.  /var/www/prog/
+sudo -u www-data scp -r root@server.228:/var/www/refresh_time/.  /var/www/refresh_time/
 
 
 ---

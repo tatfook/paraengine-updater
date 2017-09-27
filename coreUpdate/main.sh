@@ -5,8 +5,6 @@
 # step
 # 1. ./CoreUpdate.sh (240:/opt/hudson_conf/ci_shell/Client/CoreUpdate.sh)
 #
-# prequisite
-# 1. mount ParaEngineSDK
 
-echo "not finished yet"
+./CoreUpdate.sh
 exit 0

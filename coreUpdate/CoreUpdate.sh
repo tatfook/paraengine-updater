@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# author: spring@paraengine.com
-# date: 2010.4.21
-
 # $# is 0
 teentag=""
 if [ $# -eq 2 ] ; then
@@ -18,10 +15,11 @@ else
   fi
 fi
 
+
 rm -f Assets_manifest0.txt
 rm -f version.txt
 
-wget -c "http://192.168.0.228/assetdownload/list/full.txt" -O ./Assets_manifest0.txt
+wget -c "http://localhost/assetdownload/list/full.txt" -O ./Assets_manifest0.txt
 if [ ! -e "Assets_manifest0.txt" ];then
   echo Assets_manifest0.txt download from svr228 failed!
   exit 1
@@ -37,7 +35,7 @@ if [ "$teentag" == "teen" ];then
   ftpnew_dir="ftpnew_coredir_teen.txt"
   ftpold_dir="ftpold_coredir_teen.txt"
 else
-  wget -c "http://192.168.0.228/coredownload/version.txt" -O ./version.txt
+  wget -c "http://localhost/coredownload/version.txt" -O ./version.txt
   listfile="Aries_installer_v1.txt"
   uploadurl="http://192.168.0.228/cgi-bin/upload2.sh"
   updatelist="coreupdate.list"
@@ -101,8 +99,9 @@ if [ -e "tftpcore.sh" ];then
   fi
 fi
 
-wget -c "$uploadurl" -O ./upload_core.htm
-cat upload_core.htm | grep -v "Processing"
+./upload2.sh
+
+
 rm upload_core.htm -f
 rm Assets_manifest0.txt -f
 

@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# author: spring@paraengine.com
-# date: 2010.4.21
 
 teentag=""
 if [ $# -eq 1 ] ; then
@@ -20,8 +18,6 @@ fi
 
 rm -f $needlist
 
-cd /opt/hudson_conf/ci_shell/Client
-
 # get scope of the lines from Aries_installer_v1.txt for analysing, exclude remark lines, space lines.
 sed -n '/# Aries Client Core File List/,/# Post setup/p'  ParaEngineSDK/$listfile  | \
   sed -e 's/^[\t ]*//g' -e '/^[#;]/d' -e '/^[[:space:]]*$/d'  -e 's/\\/\\\\/g' -e 's/\$/\\$/g'  > $updatelist
@@ -34,9 +30,7 @@ do
   # from line including SetOutPath to get directory of files, use var remotePath to keep current path of this SetOutPath
   if [ ! -z "$testPath" ];then
     remotePath=""
-    #   echo "$line"
     remotePath0=`echo $line | sed -e 's/SetOutPath \\$INSTDIR//g' -e '/^[[:space:]]*$/d'`
-    #   echo $remotePath0
     if [ ! -z "$remotePath0" ];then
       temp_path=`echo $remotePath0|sed -e 's/\\///g' -e 's/[ \t]*//g'`
       len_0=${#temp_path}
@@ -44,7 +38,6 @@ do
       remotePath=`echo $temp_path | cut -c 2-$len_0 | tr A-Z a-z`
     fi
   else
-    # check "/oname"
     testFoname=`echo $line|grep -E "^File /oname"`
     if [ ! -z "$testFoname" ];then
       remotefile=`echo $line|awk -F" " '{print $2}'|cut -d= -f2 | sed -e 's/\\\\/\//g' | tr A-Z a-z`

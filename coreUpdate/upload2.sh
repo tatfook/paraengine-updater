@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# Author: YanDongdong  2010-3-15
-#
 # every uploading must with version info file named /home/upload/version.txt.
 # version.txt's standard content like this:
 # ver = x.x.x
@@ -170,7 +168,7 @@ fullver(){
     if [ -n "$aa" ]; then
       x0=$(echo $aa|sed 's/^[ \t]*//g; s/[ \t]*$//g; s/[\n\r]//g')
     fi
-  done < /home/upload/prog/version.txt._P_E_0
+  done < /home/ftpuser1/version.txt._P_E_0
 
   if [ -z "$x0" ]; then
     echo "ver item doesnot find in version.txt!"
@@ -215,7 +213,7 @@ fullver(){
   # copy 当前版本到相应版本备份目录
 
   rm /var/www/coredownload/list/temp012.txt -f
-  copyver /home/upload/prog /home/upload/prog /var/www/prog/$verd
+  copyver /home/ftpuser1 /home/ftpuser1 /var/www/prog/$verd
 
   # delete old version update directories
   udir=(`ls /var/www/coredownload -F |grep '/'|sed -e 's/list\///g; s/update\///g'|sed -e '/^$/d'`)
@@ -282,8 +280,7 @@ fullver(){
     done
   fi
 
-  # ftp current ftplist to ftp server
-  /usr/lib/cgi-bin/tftpcore.sh
+  cp -a /var/www/coredownload/list/ftpcorelist.txt ftpcorelist.txt
 
   # sort 当前版本 on filesize & replace the root directory with path item in verion.txt
   # 去掉manifest file 的各行开始字符

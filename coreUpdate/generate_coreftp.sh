@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 
-# author: spring@paraengine.com
-# date: 2010.4.21
 teentag=""
 if [ $# -eq 1 ] ; then
   teentag=$1
 fi
 
-cd  /opt/hudson_conf/ci_shell/Client
 
 if [ "$teentag" == "teen" ];then
   needlist="core_need_teen.list"
@@ -28,7 +25,7 @@ else
 
   # get current ftp files list on LAN publish svr: svr228
   rm -f $ftplist
-  wget "http://192.168.0.228/coredownload/list/ftpcorelist.txt" -O ./$ftplist
+  wget "http://localhost/coredownload/list/ftpcorelist.txt" -O ./$ftplist
 fi
 
 # get directory names from core update files
@@ -38,7 +35,7 @@ cut -d, -f2 $needlist | grep  "/" | sed -e 's/\(.*\)\/\(.*\)/\1/' |sort|uniq  > 
 rm -f tftpcore.sh
 echo "#!/usr/bin/env bash" > tftpcore.sh
 echo "ftp -n << !" >> tftpcore.sh
-echo "open 192.168.0.228" >> tftpcore.sh
+echo "open localhost" >> tftpcore.sh
 echo "user $ftpuser ftpparaengine" >> tftpcore.sh
 
 # delete all files & dir on core ftp server
