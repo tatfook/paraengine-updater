@@ -81,7 +81,7 @@ sort all_tmp2.list same_tmp.list | uniq -u > ftp_all.list
 ./generate_new_name.pl |grep -v ".svn" > ftp_new_name.txt
 
 
-wget "http://192.168.0.228/assetdownload/list/ftpsvrlist0.txt" -O ./ftpsvrlist0.txt
+wget "http://localhost/assetdownload/list/ftpsvrlist0.txt" -O ./ftpsvrlist0.txt
 
 sort ./ftpsvrlist0.txt |uniq > ftpsvr_sort.txt
 sort ftp_new_name.txt | uniq > ftpnewname_sort.txt
@@ -101,7 +101,10 @@ if [ -e "tftpasset.sh" ];then
   /bin/bash tftpasset.sh
 fi
 
-./svr_auto.sh "192.168.0.228" "paraengine" "/usr/local/script/renew_assetlist/chown_varwww.sh"
+
+chown www-data:www-data /var/www/* -R
+
+
 wget -c "http://192.168.0.228/cgi-bin/upload_asset2.sh" -O ./upload_asset.htm
 cat upload_asset.htm | grep -v "Processing"
 

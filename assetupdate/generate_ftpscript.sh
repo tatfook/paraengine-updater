@@ -4,8 +4,8 @@
 # get directory names from current assets update files
 sed -e 's/\(.*\)\/\(.*\)/\1/' need_upload.txt |grep -v ".svn"|sort|uniq > ftpnew_dir.txt
 
-wget "http://192.168.0.228/assetdownload/list/ftpsvrlist.txt" -O ./ftpsvrlist.txt
-wget "http://192.168.0.228/assetdownload/list/ftpsvrlist0.txt" -O ./ftpsvrlist0.txt
+wget "http://localhost/assetdownload/list/ftpsvrlist.txt" -O ./ftpsvrlist.txt
+wget "http://localhost/assetdownload/list/ftpsvrlist0.txt" -O ./ftpsvrlist0.txt
 
 
 
@@ -16,7 +16,7 @@ wget "http://192.168.0.228/assetdownload/list/ftpsvrlist0.txt" -O ./ftpsvrlist0.
 
 echo "#!/bin/bash" > tftpasset.sh
 echo "ftp -n << !" >> tftpasset.sh
-echo "open 192.168.0.228" >> tftpasset.sh
+echo "open localhost" >> tftpasset.sh
 echo "user ftpasset ftpparaengine" >> tftpasset.sh
 echo "case"  >> tftpasset.sh
 

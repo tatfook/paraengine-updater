@@ -30,7 +30,7 @@ fullver(){
       fullver $vfile "$2" "$3" "$4"
     else
       if [ -f "$vfile" ]; then
-        if [ "$vfile" != "/home/upload/asset/ftpsvrlist.txt" ]; then
+        if [ "$vfile" != "/home/ftpasset/ftpsvrlist.txt" ]; then
           pos=$(expr "$vfile" : '.*\._dat')  # recover filename from filename of ftp files (filename._datYYYYMMDD_lnnnn)
           if [ $pos -gt 5 ]; then
             vfn=${vfile:0:pos-5}
@@ -184,10 +184,10 @@ echo "" > /var/www/assetdownload/list/ftp_log0.txt
 if [ -d "$xdir" ]; then
 
   # call function fullver for recursion
-  fullver /home/upload/asset /home/upload/asset $xdir ""
+  fullver /home/ftpasset /home/ftpasset $xdir ""
 
-  # ftp current ftplist to ftp server
-  ./tftpf.sh
+  # FIXME maybe not need
+  cp -a /var/www/assetdownload/list/ftpsvrlist.txt /home/ftpasset/ftpsvrlist.txt
 
   # sort manifest file on filesize & replace the root directory with path item in verion.txt
   if [ $? -eq 0 ]; then
@@ -212,9 +212,9 @@ else
   echo no $xdir
 fi
 
-thisday=`date +%Y%m%d`
-/usr/bin/rsync -avz /var/www/assetdownload/list/full0.txt root@192.168.0.233::assetbak/full0_$thisday.txt
-/usr/bin/rsync -avz /var/www/assetdownload/list/ftpsvrlist0.txt root@192.168.0.233::assetbak/ftpsvrlist0_$thisday.txt
+# thisday=`date +%Y%m%d`
+# /usr/bin/rsync -avz /var/www/assetdownload/list/full0.txt root@192.168.0.233::assetbak/full0_$thisday.txt
+# /usr/bin/rsync -avz /var/www/assetdownload/list/ftpsvrlist0.txt root@192.168.0.233::assetbak/ftpsvrlist0_$thisday.txt
 
 echo '</body></html>'
 exit 0

@@ -26,6 +26,9 @@
 #
 # client workspace path: D:\hudsonworkspace\workspace\asset_ABupdate\paracraft
 
+
+echo "===================="
 echo "phase asset_ABupdate"
+echo "===================="
 
 exit 0

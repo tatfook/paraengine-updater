@@ -1,4 +1,4 @@
-#!/usr/bin/expect
+#!/usr/bin/env expect
 
 if {$argc!=3} {
   puts stderr "Usage: $argv0 ipaddr loginpass cmd"

@@ -26,7 +26,7 @@ svn:
 
 ## sumulation
 
-/home/ftpasset ==== server.228:/home/upload/asset/
+/home/ftpasset/ ==== server.228:/home/upload/asset/
 
 as 228 ftp:
 > apt install vsftpd
@@ -68,6 +68,15 @@ DocumentRoot /var/www/
 ```
 sudo service apache2 restart
 
+sudo mkdir /var/www/asset
 sudo mkdir /var/www/assetdownload
 sudo chown www-data:www-data -R /var/www
+sudo -u www-data scp -r root@server.228:/var/www/asset/.  /var/www/asset/
 sudo -u www-data scp -r root@server.228:/var/www/assetdownload/.  /var/www/assetdownload/
+
+
+
+
+
+
+
