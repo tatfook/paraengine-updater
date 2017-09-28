@@ -25,7 +25,7 @@ fi
 
 prequisite() {
   # mount paraenginesdk
-  mount_dirs=(installer Texture model character ParaEngineSDK)
+  mount_dirs=(installer Texture model character Database ParaEngineSDK)
   for d in ${mount_dirs[@]}; do
     mkdir -p /mnt/$d
 

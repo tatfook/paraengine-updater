@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 
-echo "not finished yet"
-exit 0
+# need makensis program
+# map   ./Haqi  ===  server.240:/opt/haqi_install/Haqi
+# mkdir -p Haqi
+# scp -r root@server.240:/opt/haqi_install/Haqi/. ./Haqi/
+
+./haqi_install_update.sh
