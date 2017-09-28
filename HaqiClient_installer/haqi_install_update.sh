@@ -212,4 +212,5 @@ if [ $? -ne 0 ];then
 fi
 
 # rsync core update files, assets update files, installer files from LAN publish svr228 to WAN publish svr134
+# (opt) for backup
 ./rsync_svr134.sh
