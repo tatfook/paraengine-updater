@@ -213,8 +213,8 @@ else
 fi
 
 # thisday=`date +%Y%m%d`
-# /usr/bin/rsync -avz /var/www/assetdownload/list/full0.txt root@192.168.0.233::assetbak/full0_$thisday.txt
-# /usr/bin/rsync -avz /var/www/assetdownload/list/ftpsvrlist0.txt root@192.168.0.233::assetbak/ftpsvrlist0_$thisday.txt
+# /usr/bin/rsync -avz /var/www/assetdownload/list/full0.txt root@10.27.2.233::assetbak/full0_$thisday.txt
+# /usr/bin/rsync -avz /var/www/assetdownload/list/ftpsvrlist0.txt root@10.27.2.233::assetbak/ftpsvrlist0_$thisday.txt
 
 echo '</body></html>'
 exit 0

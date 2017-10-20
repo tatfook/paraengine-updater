@@ -26,7 +26,7 @@ fi
 rm -f $haqidir/config/config.txt
 cp /mnt/ParaEngineSDK/config/config.txt $haqidir/config/.
 
-svn checkout svn://192.168.0.200/script/trunk/installer/Aries /opt/haqi_install/Haqi/installer/Aries --username YDD --password YDDParaEngine
+svn checkout svn://10.27.2.200/script/trunk/installer/Aries /opt/haqi_install/Haqi/installer/Aries --username YDD --password YDDParaEngine
 
 newver=`cat version.txt | sed -n '/<UpdateVersion>/,/<\/UpdateVersion/p' |grep -v Version | awk -F"." '{printf("%s.%s.%d",$1,$2,$3)}'`
 
@@ -174,8 +174,8 @@ rm $haqidir/config/Aries.commands.xml -f
 rm $haqidir/config/TaoMee.GameClient.config.xml -f
 rm $haqidir/installer/Aries/Assets_manifest0.txt -f
 
-svn checkout svn://192.168.0.200/script/trunk/script ./script.svn --username YDD --password YDDParaEngine
-svn checkout svn://192.168.0.200/script/trunk/config ./config.svn --username YDD --password YDDParaEngine
+svn checkout svn://10.27.2.200/script/trunk/script ./script.svn --username YDD --password YDDParaEngine
+svn checkout svn://10.27.2.200/script/trunk/config ./config.svn --username YDD --password YDDParaEngine
 cp ./config.svn/config.safemode.txt  $haqidir/config/. -f
 cp ./config.svn/Aries.commands.xml  $haqidir/config/. -f
 cp ./config.svn/TaoMee.GameClient.config.xml  $haqidir/config/. -f

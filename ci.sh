@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # gather all the ci phase into a project
-phases=(asset_ABupdate assetupdate client_pkg ABClntFullpkgUpdate \
+phases=(asset_ABupdate assetupdate \
+# client_pkg ABClntFullpkgUpdate \
   client_pkg_patch ABClientpkgUpdate coreUpdate HaqiClient_installer \
   PublishClientPkgToCDN PublishVerFileToCDN)
 
@@ -24,17 +25,19 @@ if [[ ! -d $1 ]]; then
 fi
 
 prequisite() {
-  # mount paraenginesdk
-  mount_dirs=(installer Texture model character Database ParaEngineSDK)
-  for d in ${mount_dirs[@]}; do
-    mkdir -p /mnt/$d
+  if [[ ! -d ./asset_ABupdate/paracraft ]]; then
+    echo "you need to run ./asset_ABupdate/main.sh first!"
+    exit 2
+  fi
 
-    # if /mnt/$d is mounted
-    if mount | grep /mnt/$d > /dev/null; then
-      echo "/mnt/$d is mounted"
-    else
-      sudo mount -t cifs -o password=paraengine //192.168.0.241/$d /mnt/$d
-    fi
+  script_path=$(realpath $0)
+  script_dir=$(dirname $script_path)
+  paracraft_dir=$script_dir/asset_ABupdate/paracraft
+
+  ln -sf $paracraft_dir /mnt/ParaEngineSDK
+  ln_dirs=(installer Texture model character Database)
+  for d in ${ln_dirs[@]}; do
+    ln -sf $paracraft_dir/$d /mnt/$d
   done
 }
 

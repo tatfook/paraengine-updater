@@ -2,7 +2,7 @@
 
 rm -f ftp_all.list
 
-svn checkout --username YDD --password YDDParaEngine svn://192.168.0.200/script/trunk/packages ./packages
+svn checkout --username YDD --password YDDParaEngine svn://10.27.2.200/script/trunk/packages ./packages
 svn update ./packages
 
 rm -f  assetmanifest.txt

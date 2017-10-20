@@ -20,7 +20,7 @@ different user has different configure
 server 200 host svn and perforce
 
 svn:
-- 
+-
 
 
 
@@ -107,4 +107,32 @@ cd ~/project/paraengine-updater
 mkdir ./client_pkg_patch/installer/
 scp -r root@server.25:/var/lib/hudson/jobs/client_pkg_patch/installer/.  ./client_pkg_patch/installer/
 
+## 241 and 242
 
+每一个jenkins slave上面，都mount了241,242的共享文件夹
+
+最近搬迁之后暴露一个问题，打包构建之后，版本回退到很久以前
+
+定位了很久才发现，原来241,242两台机器早就废弃不用，并将其ip绑定到200机器上
+
+如何查看共享文件夹：
+
+控制面板-> 搜索"计算机管理"， 在系统工具->共享文件夹下，就可以看到所有的共享列表
+
+路径：  ParaEngineSDK === D:\hudsonworkspace\workspace\asset_ABupdate\paracraft
+
+这个路径是最开始进行 asset_ABupdate的目录路径
+
+
+point:
+
+在windows上，启动映射网络驱动器，如果使用的路径是本地的路径，其为映射虚拟磁盘；如果映射的网络地址非本机地址，其为网络驱动器；
+
+查看映射虚拟磁盘
+> subst
+
+查看映射网络驱动器
+> net use
+
+查看自己的主机名
+> set computername

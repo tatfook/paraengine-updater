@@ -15,7 +15,7 @@ if [ "$teentag" == "teen" ];then
 
   # get current ftp files list on LAN publish svr: svr228
   rm -f $ftplist
-  wget "http://192.168.0.228/coredownload_teen/list/ftpcorelist.txt" -O ./$ftplist
+  wget "http://10.27.2.228/coredownload_teen/list/ftpcorelist.txt" -O ./$ftplist
 else
   needlist="core_need.list"
   ftplist="ftpcorelist.txt"

@@ -26,9 +26,9 @@ if [ ! -e "Assets_manifest0.txt" ];then
 fi
 
 if [ "$teentag" == "teen" ];then
-  wget -c "http://192.168.0.228/coredownload_teen/version.txt" -O ./version.txt
+  wget -c "http://10.27.2.228/coredownload_teen/version.txt" -O ./version.txt
   listfile="Aries_installer_teen.txt"
-  uploadurl="http://192.168.0.228/cgi-bin/upload_teen.sh"
+  uploadurl="http://10.27.2.228/cgi-bin/upload_teen.sh"
   updatelist="coreupdate_teen.list"
   needlist="core_need_teen.list"
   ftplist="ftpcorelist_teen.txt"
@@ -37,7 +37,7 @@ if [ "$teentag" == "teen" ];then
 else
   wget -c "http://localhost/coredownload/version.txt" -O ./version.txt
   listfile="Aries_installer_v1.txt"
-  uploadurl="http://192.168.0.228/cgi-bin/upload2.sh"
+  uploadurl="http://10.27.2.228/cgi-bin/upload2.sh"
   updatelist="coreupdate.list"
   needlist="core_need.list"
   ftplist="ftpcorelist.txt"
