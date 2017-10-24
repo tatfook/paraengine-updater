@@ -52,6 +52,11 @@ add
 > allow_writeable_chroot=YES
 
 
+https://ubuntuforums.org/showthread.php?t=833829
+uncomment for PUT instructions working
+> write_enable=YES
+
+
 > https://stackoverflow.com/questions/11304895/how-to-scp-a-folder-from-remote-to-local
 
 sudo -u ftpasset rm -rf /home/ftpasset/.* /home/ftpasset/*

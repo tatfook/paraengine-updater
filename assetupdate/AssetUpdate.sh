@@ -1,13 +1,13 @@
 #!/bin/bash
 
-rm -f ftp_all.list
+set -x
 
 svn checkout --username YDD --password YDDParaEngine svn://10.27.2.200/script/trunk/packages ./packages
 svn update ./packages
 
-rm -f  assetmanifest.txt
-cp  "./packages/redist/_assetmanifest.ftp.uploader.txt" assetmanifest.txt
+cp -af "./packages/redist/_assetmanifest.ftp.uploader.txt" assetmanifest.txt
 conf_file="assetmanifest.txt"
+
 
 grep -v "^--" "$conf_file" | grep -v "\[search*" | grep -v "\[exclude*" |tr -s '\r\n' '\n' |sed '/^$/d' | sed -e 's/[\t ]*$//g' > all_tmp0.list
 grep "\[search\]" "$conf_file" | grep -v "^--" | sed -e 's/\[search\]//g'| sed -e 's/[\t ]*$//g' > search_tmp0.list
@@ -15,6 +15,7 @@ grep "\[search1\]" "$conf_file" | grep -v "^--" | sed -e 's/\[search1\]//g'| sed
 grep "\[search3\]" "$conf_file" | grep -v "^--" | sed -e 's/\[search3\]//g'| sed -e 's/[\t ]*$//g' > search3_tmp0.list
 grep "\[exclude\]" "$conf_file" | grep -v "^--" | sed -e 's/\[exclude\]//g'| sed -e 's/[\t ]*$//g' > exclude_tmp0.list
 grep "\[exclude1\]" "$conf_file" | grep -v "^--" | sed -e 's/\[exclude1\]//g'| sed -e 's/[\t ]*$//g' > exclude1_tmp0.list
+
 
 rm -f all_tmp1.list
 rm -f search_tmp1.list
@@ -75,19 +76,25 @@ do
   fi
 done < exclude1_tmp0.list
 
+
+
 sort all_tmp1.list search_tmp1.list | uniq -u | grep -v -i "\.bak"> all_tmp2.list
 sort all_tmp2.list exclude_tmp1.list | uniq -d > same_tmp.list
 sort all_tmp2.list same_tmp.list | uniq -u > ftp_all.list
+
 
 ./generate_new_name.pl |grep -v ".svn" > ftp_new_name.txt
 
 
 wget "http://localhost/assetdownload/list/ftpsvrlist0.txt" -O ./ftpsvrlist0.txt
 
+
 sort ./ftpsvrlist0.txt |uniq > ftpsvr_sort.txt
 sort ftp_new_name.txt | uniq > ftpnewname_sort.txt
-sort ftpnewname_sort.txt ./ftpsvr_sort.txt |uniq -d > ab.txt
-sort ftpnewname_sort.txt ab.txt |uniq -u | grep -v " " > need_upload.txt
+sort ftpnewname_sort.txt ./ftpsvr_sort.txt |uniq -di > ab.txt
+sort ftpnewname_sort.txt ab.txt |uniq -ui | grep -v " " > need_upload.txt
+
+
 
 testChflnm=`cat need_upload.txt | sed -e 's/\(.*\)\/\(.*\)/\2/'| grep -E -v ^[0-9a-zA-Z_\-\/\.\(\)]\+\\.`
 if [ ! -z "$testChflnm" ];then
@@ -95,6 +102,7 @@ if [ ! -z "$testChflnm" ];then
   cat need_upload.txt
   exit 1
 fi
+
 
 rm -f ./tftpasset.sh
 ./generate_ftpscript.sh
@@ -104,6 +112,7 @@ fi
 
 
 sudo chown www-data:www-data /var/www/* -R
+
 
 
 ./upload_asset2.sh
