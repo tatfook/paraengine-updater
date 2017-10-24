@@ -187,15 +187,16 @@ sudo chmod -R o+r /var/www/assetdownload
 sudo chmod -R o+w /var/www/assetdownload
 sudo chmod -R o+r /var/www/asset
 sudo chmod -R o+w /var/www/asset
+
 # call function fullver for recursion
+# FIXME uncomment me
 fullver /home/ftpasset /home/ftpasset $xdir
 
-cp -a /var/www/assetdownload/list/ftpsvrlist.txt /home/ftpasset/ftpsvrlist.txt
+cp -f /var/www/assetdownload/list/ftpsvrlist.txt /home/ftpasset/ftpsvrlist.txt
 
 # sort manifest file on filesize & replace the root directory with path item in verion.txt
 sort -n -t, -r -k 3 /var/www/assetdownload/list/tdiff.txt -o /var/www/assetdownload/list/patch0.txt
 cut -c 2-200 /var/www/assetdownload/list/patch0.txt > /var/www/assetdownload/list/patch.txt
-
 
 sort -n -t, -r -k 3 /var/www/assetdownload/list/full0.txt -o /var/www/assetdownload/list/full1.txt
 cut -c 2-200 /var/www/assetdownload/list/full1.txt > /var/www/assetdownload/list/full.txt

@@ -21,7 +21,7 @@ fi
 # set timeout for npl shell compile lua script
 # what does it do????
 rm -rf bin log.txt
-./ParaEngineServer 'bootstrapper="paraengine.svn/script/shell_compile.lua"'
+./ParaEngineServer 'bootstrapper="script/shell_compile.lua"'
 
 sleep 1
 i=1
@@ -47,7 +47,7 @@ echo "sleep $i seconds" >> log.txt
 
 if [ -z "$zippatch_list" ];then
   # if param is basever
-  conf_file="paraengine.svn/packages/redist/main_script-1.0.txt"
+  conf_file="packages/redist/main_script-1.0.txt"
 
   rm -rf exclude_tmp0.txt exclude1_tmp0.txt exclude3_tmp0.txt
 
@@ -161,6 +161,9 @@ if [ -z "$zippatch_list" ];then
 fi
 
 
+
+
+
 NewFileDate=`date +%y%m%d`
 echo "begin zip..."
 rm -f ./installer/main.zip
@@ -172,10 +175,11 @@ else
 fi
 
 rm -f ./installer/main.pkg
-./ParaEngineServer 'bootstrapper="paraengine.svn/script/shell_loop_encryptzipfiles.lua"'
+./ParaEngineServer 'bootstrapper="script/shell_loop_encryptzipfiles.lua"'
 pid=`ps ax|grep ParaEngineServer.*shell_loop_encryptzipfiles|cut -d" " -f1`
 
 sleep 2
+
 rm -f /mnt/installer/main$NewFileDate.pkg
 rm -f /mnt/installer/zipfile_patch.list
 mv ./installer/main.pkg ./installer/main$NewFileDate.pkg

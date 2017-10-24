@@ -1,3 +1,16 @@
 paraengine.svn/
 config/
+config
 installer/
+bin/
+packages/
+packages
+script/
+script
+ParaEngineServer
+
+
+*.log
+*.txt
+*.list
+
