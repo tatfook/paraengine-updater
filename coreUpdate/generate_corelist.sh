@@ -1,21 +1,11 @@
 #!/usr/bin/env bash
 
 
-teentag=""
-if [ $# -eq 1 ] ; then
-  teentag=$1
-fi
+listfile="Aries_installer_v1.txt"
+updatelist="coreupdate.list"
+needlist="core_need.list"
 
-if [ "$teentag" == "teen" ];then
-  listfile="Aries_installer_teen.txt"
-  updatelist="coreupdate_teen.list"
-  needlist="core_need_teen.list"
-else
-  listfile="Aries_installer_v1.txt"
-  updatelist="coreupdate.list"
-  needlist="core_need.list"
-fi
-
+rm -f $updatelist
 rm -f $needlist
 
 # get scope of the lines from Aries_installer_v1.txt for analysing, exclude remark lines, space lines.
@@ -74,4 +64,3 @@ do
   fi
 done < $updatelist
 
-rm -f $updatelist

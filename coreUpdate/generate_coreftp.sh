@@ -1,32 +1,14 @@
 #!/usr/bin/env bash
 
-teentag=""
-if [ $# -eq 1 ] ; then
-  teentag=$1
-fi
+needlist="core_need.list"
+ftplist="ftpcorelist.txt"
+ftpnew_dir="ftpnew_coredir.txt"
+ftpold_dir="ftpold_coredir.txt"
+ftpuser="ftpuser1"
 
-
-if [ "$teentag" == "teen" ];then
-  needlist="core_need_teen.list"
-  ftplist="ftpcorelist_teen.txt"
-  ftpnew_dir="ftpnew_coredir_teen.txt"
-  ftpold_dir="ftpold_coredir_teen.txt"
-  ftpuser="ftpteen"
-
-  # get current ftp files list on LAN publish svr: svr228
-  rm -f $ftplist
-  wget "http://10.27.2.228/coredownload_teen/list/ftpcorelist.txt" -O ./$ftplist
-else
-  needlist="core_need.list"
-  ftplist="ftpcorelist.txt"
-  ftpnew_dir="ftpnew_coredir.txt"
-  ftpold_dir="ftpold_coredir.txt"
-  ftpuser="ftpuser1"
-
-  # get current ftp files list on LAN publish svr: svr228
-  rm -f $ftplist
-  wget "http://localhost/coredownload/list/ftpcorelist.txt" -O ./$ftplist
-fi
+# get current ftp files list on LAN publish svr: svr228
+rm -f $ftplist
+wget "http://localhost/coredownload/list/ftpcorelist.txt" -O ./$ftplist
 
 # get directory names from core update files
 cut -d, -f2 $needlist | grep  "/" | sed -e 's/\(.*\)\/\(.*\)/\1/' |sort|uniq  > $ftpnew_dir
