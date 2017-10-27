@@ -60,6 +60,7 @@ do
     tdir=`dirname $fln`/
   fi
   basefln=`basename $fln`
+  # FIXME database/characters should be Database/characters
   testfound=`find ./ParaEngineSDK/$tdir -maxdepth 1 -iname $basefln`
   if [[ -z "$testfound" && "$basefln" != "Assets_manifest0.txt" ]];then
     echo "$fln not found in ParaEngineSDK! Check pc241's AB directory again !"

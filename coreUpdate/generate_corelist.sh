@@ -9,7 +9,8 @@ rm -f $updatelist
 rm -f $needlist
 
 # get scope of the lines from Aries_installer_v1.txt for analysing, exclude remark lines, space lines.
-sed -n '/# Aries Client Core File List/,/# Post setup/p'  ParaEngineSDK/$listfile  | \
+# FIXME use local $listfile instead of ParaEngineSDK/$listfile
+sed -n '/# Aries Client Core File List/,/# Post setup/p'  $listfile  | \
   sed -e 's/^[\t ]*//g' -e '/^[#;]/d' -e '/^[[:space:]]*$/d'  -e 's/\\/\\\\/g' -e 's/\$/\\$/g'  > $updatelist
 
 remotePath=""
@@ -56,7 +57,9 @@ do
       testFile=`echo $line|grep -E "^File" | grep -v "File /oname"`
       if [ ! -z "$testFile" ];then
         remotefile=`echo $line|awk -F" " '{print $2}'| sed -e 's/\\\\/\//g'| tr A-Z a-z`
-        localfile=$remotefile
+        # FIXME local file is case sensitive
+        #localfile=$remotefile
+        localfile=`echo $line|awk -F" " '{print $2}'| sed -e 's/\\\\/\//g'`
         filetype=`echo $line|awk -F" " '{print $3}'|awk -F"=" '{printf("%d",$2)}'`
         echo "$localfile,${remotefile}._P_E_$filetype" >> $needlist
       fi

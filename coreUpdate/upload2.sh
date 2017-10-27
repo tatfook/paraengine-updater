@@ -5,7 +5,7 @@
 generate_version_patch() {
   current_version_dir=$1
   old_version_dir=$2
-  revision_number=$3
+  rev_number=$3
 
   if [ ! -e "/var/www/coredownload/list/temp012.txt" ];then
     echo "error! function generate_new_version_files doesn't produce a record file"
@@ -34,7 +34,7 @@ generate_version_patch() {
     case "$file_type" in
       0)
         # 如果是x.x.0 版本，则按大版本升级处理
-        if [ $revision_number -eq 0 ]; then
+        if [ $rev_number -eq 0 ]; then
           gzip -n -c -q  "$current_version_file_path" > "$update_download_zip_file_path"
           md5_digest=$(md5sum "$update_download_zip_file_path"|awk '{print $1}')
           file_size=$(ls -l "$update_download_zip_file_path"|awk '{print $5}')
@@ -63,8 +63,8 @@ generate_version_patch() {
             echo "$zip_file_name","$md5_digest","$file_size","$file_type","$file_md5", >> /var/www/coredownload/list/tdiff.txt
           fi
 
-          # FIXME why revision_number -eq 1 is special?
-          if [ $revision_number -eq 1 ]; then
+          # FIXME why rev_number -eq 1 is special?
+          if [ $rev_number -eq 1 ]; then
             echo "$zip_file_name","$md5_digest","$file_size","$file_type","$file_md5", >> /var/www/coredownload/list/full.txt
             echo "$ftp_file_name" >> /var/www/coredownload/list/ftpcorelist.txt
           fi
@@ -75,12 +75,12 @@ generate_version_patch() {
         gzip -n -c -q  "$current_version_file_path" > "$update_download_zip_file_path"
         md5_digest=$(md5sum "$update_download_zip_file_path"|awk '{print $1}')
         file_size=$(ls -l "$update_download_zip_file_path"|awk '{print $5}')
-        if [ $revision_number -eq 0 ]; then
+        if [ $rev_number -eq 0 ]; then
           echo "$zip_file_name","$md5_digest","$file_size","$file_type","$file_md5", >> /var/www/coredownload/list/full.txt
           echo "$ftp_file_name" >> /var/www/coredownload/list/ftpcorelist.txt
         else
           echo "$zip_file_name","$md5_digest","$file_size","$file_type","$file_md5", >> /var/www/coredownload/list/tdiff.txt
-          if [ $revision_number -eq 1 ]; then
+          if [ $rev_number -eq 1 ]; then
             echo "$zip_file_name","$md5_digest","$file_size","$file_type","$file_md5", >> /var/www/coredownload/list/full.txt
             echo "$ftp_file_name" >> /var/www/coredownload/list/ftpcorelist.txt
           fi

@@ -141,3 +141,9 @@ point:
 
 查看自己的主机名
 > set computername
+
+
+
+
+## chmod ftp and web dir
+chmod -R o+rwx ftp_dir web_dir
