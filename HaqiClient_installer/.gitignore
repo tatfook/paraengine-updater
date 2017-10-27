@@ -1,3 +1,6 @@
 Haqi/
 config.svn/
 script.svn/
+
+*.txt
+*.list

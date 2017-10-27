@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # This script works as a Haqi client, it upgrade the client folders to get the newest client version, and then generate the newest nsi files to create the newest installer.
-# Att: the script works with upgrade mode, so the local ver must not the newest one.
+# ATTENTION: the script works with upgrade mode, so the local ver must not the newest one.
 
 haqidir="./Haqi"
-cachelst=$haqidir/installer/Aries/cache_file.txt
+cache_list=$haqidir/installer/Aries/cache_file.txt
 SDKdir="/mnt/ParaEngineSDK"
 
 rm -f Assets_manifest0.txt
@@ -23,10 +23,11 @@ if [ $? -ne 0 ];then
   exit 1
 fi
 
+
 rm -f $haqidir/config/config.txt
 cp /mnt/ParaEngineSDK/config/config.txt $haqidir/config/.
 
-svn checkout svn://10.27.2.200/script/trunk/installer/Aries /opt/haqi_install/Haqi/installer/Aries --username YDD --password YDDParaEngine
+svn checkout svn://10.27.2.200/script/trunk/installer/Aries ./Haqi/installer/Aries --username YDD --password YDDParaEngine
 
 newver=`cat version.txt | sed -n '/<UpdateVersion>/,/<\/UpdateVersion/p' |grep -v Version | awk -F"." '{printf("%s.%s.%d",$1,$2,$3)}'`
 
@@ -35,19 +36,17 @@ curver=`cat $haqidir/version.txt| cut -d= -f2|awk -F"." '{printf("%s.%s.%d",$1,$
 rm $haqidir/temp/assetszip/* -f
 rm $haqidir/temp/cache/* -f
 
-#check if current version on local is newest, if it's newest, then cannot generate installer file.
 if [ "$curver" == "$newver"  ];then
   echo "Current ver. $curver is the newest!"
   curver0=`echo $curver|awk -F"." '{printf("%s.%s.%d",$1,$2,$3-1)}'`
   curver=$curver0
-  echo "Now USE $curver patch list to update & make installer  again!"
-  # exit 1
+  echo "Now USE $curver patch list to update & make installer again!"
 fi
 
 # get the newest cache files from the newest Assets_manifest0.txt
-while read filenm
+while read cache_file
 do
-  file0=`echo $filenm|cut -d, -f1|sed -e 's/.z$//' -e 's/.p$//'`
+  file0=`echo $cache_file|cut -d, -f1|sed -e 's/.z$//' -e 's/.p$//'`
   tempurlfile=`grep "$file0" Assets_manifest0.txt|awk -F"," '{printf("%s",$1)}'`
   tempzipfile=`basename $tempurlfile`
   tempfile=`echo $tempzipfile|sed -e 's/.z$//'`
@@ -69,7 +68,7 @@ do
     echo download $tempfile error!
     exit 1
   fi
-done < $cachelst
+done < $cache_list
 
 echo "The newest cache files created successful!"
 
@@ -134,7 +133,6 @@ done
 
 # check new files in patch list, and insert them into nsi file
 # Att: Now, only files in root can be added correctly!
-
 newfile=(`cat patch.txt |grep -v main.*.pkg|cut -d, -f1|sed -e 's/\.p$//g'`)
 nsinewfile=""
 # only add file to root directory
@@ -149,7 +147,6 @@ do
       cp $haqidir/Haqi_installer1.nsi $haqidir/Haqi_installer0.nsi
     fi
   fi
-
 done
 
 if [ ! -z "$nsimainpkg" ];then
@@ -187,14 +184,14 @@ rm patch.txt -f
 
 rm $haqidir/Release/*.* -f
 
-# run makensis to generate the windows installer
-/usr/local/nsis/bin/makensis $haqidir/Haqi_installer.nsi
+
+makensis $haqidir/Haqi_installer.nsi
 if [ $? -ne 0 ];then
   echo Haqi_0.$newver_installer.exe created failed!
   exit 1
 fi
 
-/usr/local/nsis/bin/makensis $haqidir/Aries_web_installer_v1.nsi
+makensis $haqidir/Aries_web_installer_v1.nsi
 if [ $? -ne 0 ];then
   echo HaqiWebInstaller_$newver created failed!
   exit 1
@@ -213,4 +210,4 @@ fi
 
 # rsync core update files, assets update files, installer files from LAN publish svr228 to WAN publish svr134
 # (opt) for backup
-./rsync_svr134.sh
+#./rsync_svr134.sh
